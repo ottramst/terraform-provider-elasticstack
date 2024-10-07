@@ -177,18 +177,22 @@ func GetRole(ctx context.Context, apiClient *clients.ApiClient, rolename string)
 	if err != nil {
 		return nil, diag.FromErr(err)
 	}
+
 	req := esClient.Security.GetRole.WithName(rolename)
 	res, err := esClient.Security.GetRole(req, esClient.Security.GetRole.WithContext(ctx))
 	if err != nil {
 		return nil, diag.FromErr(err)
 	}
 	defer res.Body.Close()
+
 	if res.StatusCode == http.StatusNotFound {
 		return nil, nil
 	}
+
 	if diags := utils.CheckError(res, "Unable to get a role."); diags.HasError() {
 		return nil, diags
 	}
+
 	roles := make(map[string]models.Role)
 	if err := json.NewDecoder(res.Body).Decode(&roles); err != nil {
 		return nil, diag.FromErr(err)

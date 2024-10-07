@@ -158,7 +158,7 @@ func resourceWatchPut(ctx context.Context, d *schema.ResourceData, meta interfac
 		watch.Body.Transform = transform
 	}
 
-	watch.Body.Throttle_period_in_millis = d.Get("throttle_period_in_millis").(int)
+	watch.Body.ThrottlePeriodInMillis = d.Get("throttle_period_in_millis").(int)
 
 	if diags := elasticsearch.PutWatch(ctx, client, &watch); diags.HasError() {
 		return diags
@@ -245,7 +245,7 @@ func resourceWatchRead(ctx context.Context, d *schema.ResourceData, meta interfa
 		}
 	}
 
-	if err := d.Set("throttle_period_in_millis", watch.Body.Throttle_period_in_millis); err != nil {
+	if err := d.Set("throttle_period_in_millis", watch.Body.ThrottlePeriodInMillis); err != nil {
 		return diag.FromErr(err)
 	}
 

@@ -83,8 +83,8 @@ func NewApiClientFuncFromSDK(version string) func(context.Context, *schema.Resou
 }
 
 func NewAcceptanceTestingClient() (*ApiClient, error) {
-	version := "tf-acceptance-testing"
-	cfg := config.NewFromEnv(version)
+	v := "tf-acceptance-testing"
+	cfg := config.NewFromEnv(v)
 
 	es, err := elasticsearch.NewClient(*cfg.Elasticsearch)
 	if err != nil {
@@ -117,7 +117,7 @@ func NewAcceptanceTestingClient() (*ApiClient, error) {
 			connectors:    actionConnectors,
 			kibanaConfig:  *cfg.Kibana,
 			fleet:         fleetClient,
-			version:       version,
+			version:       v,
 		},
 		nil
 }
@@ -194,8 +194,8 @@ func MaybeNewApiClientFromFrameworkResource(ctx context.Context, esConnList type
 
 func NewApiClientFromSDKResource(d *schema.ResourceData, meta interface{}) (*ApiClient, diag.Diagnostics) {
 	defaultClient := meta.(*ApiClient)
-	version := defaultClient.version
-	resourceConfig, diags := config.NewFromSDKResource(d, version)
+	v := defaultClient.version
+	resourceConfig, diags := config.NewFromSDKResource(d, v)
 	if diags.HasError() {
 		return nil, diags
 	}
@@ -214,7 +214,7 @@ func NewApiClientFromSDKResource(d *schema.ResourceData, meta interface{}) (*Api
 		elasticsearchClusterInfo: defaultClient.elasticsearchClusterInfo,
 		kibana:                   defaultClient.kibana,
 		fleet:                    defaultClient.fleet,
-		version:                  version,
+		version:                  v,
 	}, diags
 }
 

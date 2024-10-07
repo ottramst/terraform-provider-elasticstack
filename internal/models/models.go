@@ -234,11 +234,11 @@ type SnapshotPolicy struct {
 	Config     *SnapshotPolicyConfig `json:"config,omitempty"`
 	Name       string                `json:"name"`
 	Repository string                `json:"repository"`
-	Retention  *SnapshortRetention   `json:"retention,omitempty"`
+	Retention  *SnapshotRetention    `json:"retention,omitempty"`
 	Schedule   string                `json:"schedule"`
 }
 
-type SnapshortRetention struct {
+type SnapshotRetention struct {
 	ExpireAfter *string `json:"expire_after,omitempty"`
 	MaxCount    *int    `json:"max_count,omitempty"`
 	MinCount    *int    `json:"min_count,omitempty"`
@@ -366,11 +366,11 @@ type PutWatch struct {
 }
 
 type WatchBody struct {
-	Trigger                   map[string]interface{} `json:"trigger"`
-	Input                     map[string]interface{} `json:"input"`
-	Condition                 map[string]interface{} `json:"condition"`
-	Actions                   map[string]interface{} `json:"actions"`
-	Metadata                  map[string]interface{} `json:"metadata"`
-	Transform                 map[string]interface{} `json:"transform,omitempty"`
-	Throttle_period_in_millis int                    `json:"throttle_period_in_millis,omitempty"`
+	Trigger                map[string]interface{} `json:"trigger"`
+	Input                  map[string]interface{} `json:"input"`
+	Condition              map[string]interface{} `json:"condition"`
+	Actions                map[string]interface{} `json:"actions"`
+	Metadata               map[string]interface{} `json:"metadata"`
+	Transform              map[string]interface{} `json:"transform,omitempty"`
+	ThrottlePeriodInMillis int                    `json:"throttle_period_in_millis,omitempty"`
 }
